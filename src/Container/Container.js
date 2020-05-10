@@ -54,7 +54,7 @@ class Container extends React.Component{
         let i = 0
         for(let x in data){
             i = i + 1
-            let segmentedvideo = "segmented-video-" + x 
+            let segmentedvideo = "segmented-video-" + i 
             let segmentedvideosource = "segmented-video-source-" + i
             item.push(
                 <div className="col-md-4">
