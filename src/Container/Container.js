@@ -111,7 +111,7 @@ class Container extends React.Component{
                                 </MDBInput>:
                                 ""
                             }
-                            {validate == true?
+                            {/* {validate == true?
                                 <MDBBtn
                                     className="process-video"
                                     color="pink"
@@ -129,7 +129,16 @@ class Container extends React.Component{
                                 >
                                     segment video
                                 </MDBBtn>
-                            }
+                            } */}
+                            <MDBBtn
+                                className="process-video"
+                                color="pink"
+                                type="submit"
+                                onClick={this.onSubmit}
+                                disabled
+                            >
+                                segment video
+                            </MDBBtn>
                         </form>
                         <div className="row">
                             {this.setvideo(this.props.videodata.interval_videos)}
