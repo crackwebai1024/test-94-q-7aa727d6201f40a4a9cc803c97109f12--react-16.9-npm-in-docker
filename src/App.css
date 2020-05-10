@@ -31,3 +31,32 @@
     transform: rotate(360deg);
   }
 }
+
+thead>th{
+  color: white
+}
+
+.modal-header{
+  background-color: rgb(50,50,50);
+  align-content: center;
+}
+
+.modal-title{
+  margin: auto;
+  color: white
+}
+
+.right{
+  text-align: left !important;
+}
+
+.segment-setting{
+  display: block;
+  border:none;
+  outline:none,
+}
+
+.segment-setting:focus{
+  border:none;
+  outline:none,
+}
