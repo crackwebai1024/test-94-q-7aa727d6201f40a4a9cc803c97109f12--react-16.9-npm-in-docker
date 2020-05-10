@@ -36,7 +36,7 @@ class Container extends React.Component{
             }
         }
         debugger
-        if ((this.state.url.search("https://") !== 0 && this.state.url.search("http://") !== 0) || this.state.selectitem !== "interval_duration" ){
+        if ((this.state.url.search("https://") !== 0 && this.state.url.search("http://") !== 0) || this.state.selectitem !== "interval-duration" ){
             debugger
             return false
         }
@@ -93,8 +93,8 @@ class Container extends React.Component{
                             </MDBInput>
                             <select className="segment-setting" name="selectitem" placeholder="Select Segment Settings..." onChange={this.handlechange}>
                                 <option disabled selected value> -- select an option -- </option>
-                                <option value="interval_duration" className="interval-duration-option">Interval duration</option>
-                                <option value="range_duration">Range duration</option>
+                                <option value="interval-duration" className="interval-duration-option">Interval duration</option>
+                                <option value="range-duration">Range duration</option>
                                 <option value="number of segments">Number of segments</option>
                             </select>
                             <hr></hr>
