@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MDBInput, MDBBtn } from 'mdbreact';
-import { Get_Video } from '../store/actions/action'
+// import Range from './Range';
+import Interval from './Interval';
+import Number from './Number';
 
 
 class Container extends React.Component{
     state = {
         url: "",
         selectitem:"",
-        interval_duration: 0
     }
 
     handlechange = e => {
@@ -18,37 +19,18 @@ class Container extends React.Component{
         })
     }
 
-    onSubmit = e => {
-        e.preventDefault()
-        let body ={ 
-            "video_link": this.state.url, 
-            "interval_duration": Number(this.state.interval_duration) 
-        } 
-        this.props.getvideo(body)
+    renderswitch = (param) => {
+        switch(param){
+            case 'interval-duration':
+                return <Interval url={this.state.url}/>
+            // case 'range-duration':
+            //     return <Range />
+            case 'number-of-segments':
+                return <Number />
+            default:
+                return 
+        }
     }
-
-    validatesegment = () => {
-        debugger
-        for(let x in this.state){
-            if(this.state[x].length == 0){
-                debugger
-                return false
-            }
-        }
-        debugger
-        if ((this.state.url.search("https://") !== 0 && this.state.url.search("http://") !== 0) || this.state.selectitem !== "interval-duration" ){
-            debugger
-            return false
-        }
-
-        if(this.state.interval_duration <= 0){
-            debugger
-            return false
-        }
-
-        return true
-    }
-
     setvideo = (data) => {
         let item = []
         let i = 0
@@ -72,7 +54,6 @@ class Container extends React.Component{
     }
 
     render(){
-        let validate = this.validatesegment()
         return(
             <div>
                 <h1 style={{ paddingTop: "30px" }}>Segment Video</h1>
@@ -94,51 +75,11 @@ class Container extends React.Component{
                             <select className="segment-setting" name="selectitem" placeholder="Select Segment Settings..." onChange={this.handlechange}>
                                 <option disabled selected value> -- select an option -- </option>
                                 <option value="interval-duration" className="interval-duration-option">Interval duration</option>
-                                <option value="range-duration">Range duration</option>
-                                <option value="number of segments">Number of segments</option>
+                                <option value="range-duration" className="range-duration-option">Range duration</option>
+                                <option value="number-of-segments" className="num-segments-option">Number of segments</option>
                             </select>
                             <hr></hr>
-                            {this.state.selectitem == "interval-duration" ?
-                            <MDBInput
-                                label="Interval Duration..."
-                                type="Number"
-                                name="interval_duration"
-                                className="interval-duration"
-                                value={this.state.interval_duration}
-                                onChange={this.handlechange}
-                                required    
-                            >
-                            </MDBInput>:
-                            <MDBInput
-                                type="Number"
-                                name="interval_duration"
-                                className="interval-duration"
-                                value={this.state.interval_duration}
-                                onChange={this.handlechange}
-                                required 
-                                hidden   
-                            >
-                            </MDBInput>
-                            }
-                            {validate == true?
-                                <MDBBtn
-                                    className="process-video"
-                                    color="pink"
-                                    type="submit"
-                                    onClick={this.onSubmit}
-                                >
-                                    segment video
-                                </MDBBtn>:
-                                <MDBBtn
-                                    className="process-video"
-                                    color="pink"
-                                    type="submit"
-                                    onClick={this.onSubmit}
-                                    disabled
-                                >
-                                    segment video
-                                </MDBBtn>
-                            }
+                            {this.renderswitch(this.state.selectitem)}
                         </form>
                         <div className="row">
                             {this.setvideo(this.props.videodata.interval_videos)}
@@ -159,7 +100,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        getvideo: (body) => dispatch(Get_Video(body))
     }
 }
 

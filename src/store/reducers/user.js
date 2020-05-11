@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
 const initialState = {
-    data: []
+    data: [],
+    durationlist:[],
 }
 
 const getsegmentdata = (state, action) => {
@@ -14,12 +15,20 @@ const getsegmentdata = (state, action) => {
     return state;
 }
 
+const getrange = (state, action) => {
+    state = updateObject(state, {
+        durationlist: action.body
+    })
+}
+
 const reducer = (state = initialState, action) => {
     var oldstate = state;
     state = initialState;
     switch (action.type) {
         case actionTypes.GET_SEGMENT:
             return getsegmentdata(state, action);
+        case actionTypes.GET_RANGE:
+            return getrange(state, action);
         default:
             return initialState;
     }

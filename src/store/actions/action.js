@@ -19,7 +19,7 @@ export const addsuc = () => {
 export const Get_Video = (body) =>{
     debugger
     console.log(body)
-    let url = "http://3.219.31.158:4000/api/process-interval"
+    let url = "http://3.219.31.158:4059/api/process-interval"
     return dispatch => {
         axios.
         post(url, body)
