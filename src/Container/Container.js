@@ -98,20 +98,29 @@ class Container extends React.Component{
                                 <option value="number of segments">Number of segments</option>
                             </select>
                             <hr></hr>
-                            {this.state.selectitem !== ""?
-                                <MDBInput
-                                    label={this.state.selectitem}
-                                    value={this.state.interval_duration}
-                                    type="number"
-                                    name="interval_duration"
-                                    className="interval-duration"
-                                    onChange={this.handlechange}
-                                    required    
-                                >
-                                </MDBInput>:
-                                ""
+                            {this.state.selectitem == "interval-duration" ?
+                            <MDBInput
+                                label="Interval Duration..."
+                                type="Number"
+                                name="interval_duration"
+                                className="interval-duration"
+                                value={this.state.interval_duration}
+                                onChange={this.handlechange}
+                                required    
+                            >
+                            </MDBInput>:
+                            <MDBInput
+                                type="Number"
+                                name="interval_duration"
+                                className="interval-duration"
+                                value={this.state.interval_duration}
+                                onChange={this.handlechange}
+                                required 
+                                hidden   
+                            >
+                            </MDBInput>
                             }
-                            {/* {validate == true?
+                            {validate == true?
                                 <MDBBtn
                                     className="process-video"
                                     color="pink"
@@ -129,16 +138,7 @@ class Container extends React.Component{
                                 >
                                     segment video
                                 </MDBBtn>
-                            } */}
-                            <MDBBtn
-                                className="process-video"
-                                color="pink"
-                                type="submit"
-                                onClick={this.onSubmit}
-                                disabled
-                            >
-                                segment video
-                            </MDBBtn>
+                            }
                         </form>
                         <div className="row">
                             {this.setvideo(this.props.videodata.interval_videos)}
