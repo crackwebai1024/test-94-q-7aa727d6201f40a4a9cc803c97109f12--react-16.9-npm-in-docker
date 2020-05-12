@@ -22,7 +22,6 @@ class RangeElement extends React.Component{
         let clname = "range-duration-start-" + (this.props.id + 1)
         let suname = "range-duration-end-" + (this.props.id + 1)
         let btnname = "delete-range-duration-" + (this.props.id + 1)
-
         this.props.setstartandend(this.state.duration_start, this.state.duration_end, this.props.id)
         return(
             <MDBRow md="8">
@@ -35,7 +34,7 @@ class RangeElement extends React.Component{
                 >
                 </MDBInput>
                 <MDBInput
-                    label = "range duration start..."
+                    label = "range duration end..."
                     type = "Number"
                     onChange = {this.handlechange}
                     name = "duration_end"

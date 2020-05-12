@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { MDBInput, MDBBtn } from 'mdbreact';
 import RangeElement from './RangeElement';
-import { Send_Data } from '../store/actions/action'
+import { Get_Video } from '../store/actions/action';
 
 class Range extends React.Component{
     state = {
@@ -12,21 +12,33 @@ class Range extends React.Component{
 
     validate = durationlist => {
         debugger
+        if(durationlist.length == 0){
+            debugger
+            return false
+        }
+        debugger
+        if ((this.props.url.search("https://") !== 0 && this.props.url.search("http://") !== 0)){
+            debugger
+            return false
+        }
+        debugger
         for(let x in durationlist){
-            if(durationlist[x][0] >= durationlist[x][1] || durationlist[x][0]==undefined || durationlist[x][1]==undefined){
-                this.props.setrangevalidation(false)
-                return
+            if(durationlist[x]['start'] >= durationlist[x]['end'] || durationlist[x]['start']==="" || durationlist[x]['end']===""){
+                debugger
+                return false
+            }
+            if(durationlist[x]['start']<0 || durationlist[x]['end']<0){
+                debugger
+                return false
             }
         }
-        this.props.send(durationlist)
-        this.props.setrangevalidation(true)
+        debugger
+        return true
     }
 
     setstartandend = (start, end, i) => {
         let list = this.state.durationlist
-        list[i] = [start, end]
-        debugger
-        this.validate(list)
+        list[i] = {start: Number(start), end: Number(end)}
         this.setState({
             durationlist: list
         })
@@ -37,7 +49,6 @@ class Range extends React.Component{
         let durationlist = this.state.durationlist
         itemlist.splice(i, 1)
         durationlist.splice(i, 1)
-        this.validate(durationlist)
         this.setState({
             item: itemlist,
             durationlist: durationlist
@@ -49,13 +60,11 @@ class Range extends React.Component{
         let item=this.state.item
         let durationlist = this.state.durationlist
         item.push(
-            <div>
-                <RangeElement 
-                    setstartandend={this.setstartandend} 
-                    delete={this.delete}
-                    id={this.state.item.length}
-                />
-            </div>            
+            <RangeElement 
+                setstartandend={this.setstartandend} 
+                delete={this.delete}
+                id={this.state.item.length}
+            />     
         )
         durationlist[durationlist.length]=[0,0]
         this.validate(durationlist)
@@ -65,8 +74,17 @@ class Range extends React.Component{
         })
     }
 
+    onSubmit = e => {
+        e.preventDefault()
+        let body ={ 
+            "video_link": this.props.url, 
+            "interval_range": this.state.durationlist 
+        }        
+        this.props.getvideo(body)
+    }
+
     render(){
-        debugger
+        let validate = this.validate(this.state.durationlist)
         return(
             <div>
                 <MDBBtn
@@ -78,6 +96,21 @@ class Range extends React.Component{
                 <div>
                     {this.state.item}
                 </div>
+                {validate?
+                <MDBBtn
+                    className="process-video"
+                    onClick={this.onSubmit}
+                >
+                    Segment Video
+                </MDBBtn>:
+                <MDBBtn
+                    className="process-video"
+                    onClick={this.onSubmit}
+                    disabled
+                >
+                    Segment Video
+                </MDBBtn>
+                }
             </div>
         )
     }
@@ -91,7 +124,7 @@ const mapStateToProps = state => {
 
 const matDispatchToProps = dispatch => {
     return{
-        send: (durationlist) => dispatch(Send_Data(durationlist))
+        getvideo: (body) => dispatch(Get_Video(body))
     }
 }
 

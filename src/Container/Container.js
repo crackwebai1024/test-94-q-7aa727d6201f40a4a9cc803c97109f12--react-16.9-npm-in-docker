@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MDBInput, MDBBtn } from 'mdbreact';
-// import Range from './Range';
+import Range from './Range';
 import Interval from './Interval';
 import Number from './Number';
 
@@ -23,8 +23,8 @@ class Container extends React.Component{
         switch(param){
             case 'interval-duration':
                 return <Interval url={this.state.url}/>
-            // case 'range-duration':
-            //     return <Range />
+            case 'range-duration':
+                return <Range url={this.state.url}/>
             case 'number-of-segments':
                 return <Number />
             default:

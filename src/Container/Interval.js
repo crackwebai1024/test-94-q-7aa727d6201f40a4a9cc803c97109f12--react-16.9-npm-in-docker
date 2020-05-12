@@ -28,7 +28,7 @@ class Interval extends React.Component{
         if ((this.props.url.search("https://") !== 0 && this.props.url.search("http://") !== 0)){
             return false
         }
-        if(this.state.interval_duration <= 0){
+        if(this.state.interval_duration <= 0 || this.state.interval_duration === ""){
             return false
         }
         return true
