@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { MDBInput , MDBBtn } from 'mdbreact'
-import { Get_Video } from '../store/actions/action';
+import { Get_Interval } from '../store/actions/action';
 
 class Interval extends React.Component{
     state = {
@@ -73,7 +73,7 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch => {
     return{
-        getvideo: (body) => dispatch(Get_Video(body))
+        getvideo: (body) => dispatch(Get_Interval(body))
     }
 }
 

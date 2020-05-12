@@ -26,7 +26,7 @@ class Container extends React.Component{
             case 'range-duration':
                 return <Range url={this.state.url}/>
             case 'number-of-segments':
-                return <Number />
+                return <Number url={this.state.url}/>
             default:
                 return 
         }
